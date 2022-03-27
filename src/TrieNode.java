@@ -12,7 +12,6 @@ public class TrieNode {
         this.c = c;
         children = new HashMap<>();
     }
-
     public TrieNode() {
         children = new HashMap<>();
     }
@@ -27,7 +26,6 @@ public class TrieNode {
             child = new TrieNode(firstChar);
             children.put(firstChar, child);
         }
-
         if (word.length() > 1)
             child.insert(word.substring(1));
         else
