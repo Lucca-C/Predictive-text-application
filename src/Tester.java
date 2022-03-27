@@ -6,6 +6,6 @@ public class Tester {
                 "potato", "porr", "wack");
         Trie trie = new Trie(words);
 
-        System.out.println(trie.suggest("w"));
+        System.out.println(trie.prediction("w"));
     }
 }

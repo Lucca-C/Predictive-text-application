@@ -25,20 +25,18 @@ public class Trie {
     private boolean find(String prefix) {
         return find(prefix, false);
     }
-    private void suggestHelper(TrieNode root, List<String> list, StringBuffer curr) {
+    private void helper(TrieNode root, List<String> list, StringBuffer curr) {
         if (root.isWord()) {
             list.add(curr.toString());
         }
-
         if (root.getChildren() == null || root.getChildren().isEmpty())
             return;
-
         for (TrieNode child : root.getChildren().values()) {
-            suggestHelper(child, list, curr.append(child.getC()));
+            helper(child, list, curr.append(child.getC()));
             curr.setLength(curr.length() - 1);
         }
     }
-    public List<String> suggest(String prefix) {
+    public List<String> prediction(String prefix) {
         List<String> list = new ArrayList<>();
         TrieNode lastNode = root;
         StringBuffer curr = new StringBuffer();
@@ -48,7 +46,7 @@ public class Trie {
                 return list;
             curr.append(c);
         }
-        suggestHelper(lastNode, list, curr);
+        helper(lastNode, list, curr);
         return list;
     }
     //-----ACCESSORS & MUTATORS
