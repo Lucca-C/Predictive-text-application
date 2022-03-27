@@ -1,54 +1,49 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Trie {
+    //-----FIELDS-----
+    private TrieNode root;
 
-
-    TrieNode root;
-
+    //-----CONSTRUCTORS-----
     public Trie(List<String> words) {
         root = new TrieNode();
         for (String word : words)
             root.insert(word);
-
     }
 
+    //-----METHODS-----
     public boolean find(String prefix, boolean exact) {
         TrieNode lastNode = root;
         for (char c : prefix.toCharArray()) {
-            lastNode = lastNode.children.get(c);
+            lastNode = lastNode.getChildren().get(c);
             if (lastNode == null)
                 return false;
         }
-        return !exact || lastNode.isWord;
+        return !exact || lastNode.isWord();
     }
-
     public boolean find(String prefix) {
         return find(prefix, false);
     }
-
     public void suggestHelper(TrieNode root, List<String> list, StringBuffer curr) {
-        if (root.isWord) {
+        if (root.isWord()) {
             list.add(curr.toString());
         }
 
-        if (root.children == null || root.children.isEmpty())
+        if (root.getChildren() == null || root.getChildren().isEmpty())
             return;
 
-        for (TrieNode child : root.children.values()) {
-            suggestHelper(child, list, curr.append(child.c));
+        for (TrieNode child : root.getChildren().values()) {
+            suggestHelper(child, list, curr.append(child.getC()));
             curr.setLength(curr.length() - 1);
         }
     }
-
     public List<String> suggest(String prefix) {
         List<String> list = new ArrayList<>();
         TrieNode lastNode = root;
         StringBuffer curr = new StringBuffer();
         for (char c : prefix.toCharArray()) {
-            lastNode = lastNode.children.get(c);
+            lastNode = lastNode.getChildren().get(c);
             if (lastNode == null)
                 return list;
             curr.append(c);
@@ -56,6 +51,11 @@ public class Trie {
         suggestHelper(lastNode, list, curr);
         return list;
     }
-
-
+    //-----ACCESSORS & MUTATORS
+    public TrieNode getRoot() {
+        return root;
+    }
+    public void setRoot(TrieNode root) {
+        this.root = root;
+    }
 }

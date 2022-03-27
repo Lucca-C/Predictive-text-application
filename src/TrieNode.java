@@ -2,10 +2,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TrieNode {
-    Map<Character, TrieNode> children;
-    char c;
-    boolean isWord;
+    //-----FIELDS-----
+    private Map<Character, TrieNode> children;
+    private char c;
+    private boolean isWord;
 
+    //-----CONSTRUCTORS-----
     public TrieNode(char c) {
         this.c = c;
         children = new HashMap<>();
@@ -15,6 +17,7 @@ public class TrieNode {
         children = new HashMap<>();
     }
 
+    //-----METHODS-----
     public void insert(String word) {
         if (word == null || word.isEmpty())
             return;
@@ -31,4 +34,23 @@ public class TrieNode {
             child.isWord = true;
     }
 
+    //-----ACCESSORS & MUTATORS-----
+    public Map<Character, TrieNode> getChildren() {
+        return children;
+    }
+    public void setChildren(Map<Character, TrieNode> children) {
+        this.children = children;
+    }
+    public char getC() {
+        return c;
+    }
+    public void setC(char c) {
+        this.c = c;
+    }
+    public boolean isWord() {
+        return isWord;
+    }
+    public void setWord(boolean word) {
+        isWord = word;
+    }
 }
