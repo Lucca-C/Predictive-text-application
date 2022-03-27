@@ -13,7 +13,7 @@ public class Trie {
     }
 
     //-----METHODS-----
-    public boolean find(String prefix, boolean exact) {
+    private boolean find(String prefix, boolean exact) {
         TrieNode lastNode = root;
         for (char c : prefix.toCharArray()) {
             lastNode = lastNode.getChildren().get(c);
@@ -22,10 +22,10 @@ public class Trie {
         }
         return !exact || lastNode.isWord();
     }
-    public boolean find(String prefix) {
+    private boolean find(String prefix) {
         return find(prefix, false);
     }
-    public void suggestHelper(TrieNode root, List<String> list, StringBuffer curr) {
+    private void suggestHelper(TrieNode root, List<String> list, StringBuffer curr) {
         if (root.isWord()) {
             list.add(curr.toString());
         }
