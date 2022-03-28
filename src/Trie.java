@@ -6,6 +6,11 @@ public class Trie {
     private TrieNode root;
 
     //-----CONSTRUCTORS-----
+    /**
+     * Constructor for Trie.
+     * Populates the Trie with the words from the dictionary.
+     * @param words arrayList of Strings. These are the dictionary words.
+     */
     public Trie(List<String> words) {
         root = new TrieNode();
         for (String word : words)
@@ -13,6 +18,16 @@ public class Trie {
     }
 
     //-----METHODS-----
+
+    /**
+     * Prefix is target.
+     * For every letter in target,
+     * get the node paired with that letter, in the children hashmap.
+     * Make that node ^ the current node.
+     * @param prefix
+     * @param exact
+     * @return boolean !exact or true, if lastNode is a word.
+     */
     private boolean find(String prefix, boolean exact) {
         TrieNode lastNode = root;
         for (char c : prefix.toCharArray()) {
