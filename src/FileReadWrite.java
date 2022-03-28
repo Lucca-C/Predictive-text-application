@@ -7,10 +7,8 @@ public class FileReadWrite {
 
     public void FileRead(String filePath){
         String read;
-
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
-
             while((read = br.readLine()) !=null){
                 System.out.println(read);
             }
@@ -21,11 +19,34 @@ public class FileReadWrite {
         }
     }
 
+    public boolean CheckDuplicates(String input, String filePath){
+        boolean duplicate = false;
+        ArrayList<String> words = FileToArray(filePath);
+        int count = 0;
+
+        while (count<words.size()){
+            if (words.get(count).equals(input)){
+                duplicate = true;
+            }
+            count++;
+        }
+        return duplicate;
+    }
+
     public void FileWrite(String input, String filePath){
+        boolean duplicate = true;
+
         try
         {
+            duplicate = CheckDuplicates(input, filePath);
+
             FileWriter fw = new FileWriter(filePath,true); //the true will append the new data
-            fw.write(input+"\n");//appends the string to the file
+            if(duplicate==true){
+                System.err.println("This input is a duplicate");
+            } else {
+                fw.write(input+"\n");//appends the string to the file
+                System.out.println("Successfully added word");
+            }
             fw.close();
         }
         catch(IOException ioe)
@@ -50,8 +71,6 @@ public class FileReadWrite {
         }catch (IOException e){
             e.printStackTrace();
         }
-
-        System.out.println(values);
         return values;
     }
 
