@@ -23,9 +23,13 @@ public class FileReadWrite {
         boolean duplicate = false;
         ArrayList<String> words = FileToArray(filePath);
         int count = 0;
+        String currentWord;
 
         while (count<words.size()){
-            if (words.get(count).equals(input)){
+            currentWord = words.get(count).toLowerCase();
+            input = input.toLowerCase();
+
+            if (currentWord.equals(input)){
                 duplicate = true;
             }
             count++;
