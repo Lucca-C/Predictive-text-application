@@ -14,8 +14,9 @@ class GUI {
     private final JPanel mainMenuPanel = new JPanel();
     private final JPanel dictionaryPanel = new JPanel();
     private final JPanel optionsPanel = new JPanel();
-    JButton firstPrediction = new JButton();
-    JButton secondPrediction = new JButton();
+    JButton firstPrediction;
+    JButton secondPrediction;
+    JButton thirdPrediction;
 
     /*
      * Main method
@@ -65,10 +66,6 @@ class GUI {
                  * Make the Main Menu invisible
                  */
                 mainMenuPanel.setVisible(false);
-                dictionaryPanel.add(goBackFromDictionary);
-                textBox.setAlignmentX(Component.LEFT_ALIGNMENT);
-                dictionaryPanel.add(textBox);
-                window.add(dictionaryPanel);
                 dictionaryPanel.setVisible(true);
 
             }
@@ -134,10 +131,21 @@ class GUI {
      * Method to create the Dictionary window
      */
     public void createDictionary(){
-        /*
-         * Setting "Go Back" button position and adding it to the frame
-         */
 
+        window.add(dictionaryPanel);
+        dictionaryPanel.add(goBackFromDictionary, BorderLayout.WEST);
+        dictionaryPanel.add(textBox, BorderLayout.SOUTH);
+
+        firstPrediction = new JButton(" ");
+        secondPrediction = new JButton(" ");
+        thirdPrediction = new JButton(" ");
+
+        dictionaryPanel.add(firstPrediction, BorderLayout.NORTH);
+        dictionaryPanel.add(secondPrediction, BorderLayout.NORTH);
+        dictionaryPanel.add(thirdPrediction, BorderLayout.NORTH);
+
+        window.add(dictionaryPanel);
+        window.setVisible(true);
 
         goBackFromDictionary.addActionListener(new ActionListener() {
 
@@ -193,14 +201,10 @@ class GUI {
         Dictionary dictionary = new Dictionary();
         Trie t = new Trie(dictionary.getWords());
         PredictiveText predictive = new PredictiveText(t);
-        System.out.println(predictive.prediction(string));
 
         firstPrediction.setText(predictive.prediction(string).get(0));
         secondPrediction.setText(predictive.prediction(string).get(1));
-        firstPrediction.setAlignmentX(Component.LEFT_ALIGNMENT);
-        secondPrediction.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        dictionaryPanel.add(firstPrediction);
-        dictionaryPanel.add(secondPrediction);
+        thirdPrediction.setText(predictive.prediction(string).get(2));
         dictionaryPanel.setVisible(true);
 
     }
