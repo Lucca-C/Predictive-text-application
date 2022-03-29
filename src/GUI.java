@@ -1,72 +1,139 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 class GUI {
-    //-----FIELDS-----
 
-    //Initialising the buttons
-    private final JButton start = new JButton("Start");
-    private final JButton options = new JButton("Options");
-    private final JButton exit = new JButton("Exit");
+    private final JButton goBack = new JButton("Go Back");
+    private final JPanel dictionaryPanel = new JPanel();
+    private final JTextField textBox = new JTextField(30);
 
-    //-----CONSTRUCTOR-----
-    /**
+    /*
+     * Main method
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+
+        new GUI();
+
+    }
+
+    /*
      * Constructor for frame and its components
      */
     public GUI() {
-        //Creating the Main Menu Frame
-        JFrame frame = new JFrame("Main Menu");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
 
-        //Creating the Dictionary Program Frame
-        JFrame frame2 = new JFrame("Dictionary");
-        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame2.setSize(800, 600);
+        /*
+         * Creating the different frames within GUI
+         */
+        JFrame mainMenuFrame = new JFrame("Main Menu");
+        mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainMenuFrame.setSize(800, 600);
 
-        //Handling when "start" button is clicked
+        JFrame dictionaryFrame = new JFrame("Dictionary");
+        dictionaryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        dictionaryFrame.setSize(800, 600);
+
+        JFrame optionsFrame = new JFrame("Options");
+        optionsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        optionsFrame.setSize(800, 600);
+
+        /*
+         * Handling when "Go Back" button is pressed
+         */
+        goBack.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                dictionaryFrame.setLocationRelativeTo(null);
+                mainMenuFrame.setVisible(true);
+                dictionaryFrame.setVisible(false);
+
+            }
+        });
+
+        /*
+         * Setting "Go Back" button position and adding it to the frame
+         */
+        goBack.setBounds(10, 10, 80, 40);
+
+
+        /*
+         * Handling when "Start" button is clicked
+         */
+        JButton start = new JButton("Start");
         start.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame2.setLocationRelativeTo(null);
-                frame.setVisible(false);
-                frame2.setVisible(true);
+
+                dictionaryFrame.setLocationRelativeTo(null);
+                mainMenuFrame.setVisible(false);
+                dictionaryFrame.add(goBack);
+                dictionaryPanel.add(textBox);
+                dictionaryFrame.add(dictionaryPanel);
+                dictionaryFrame.setVisible(true);
+
             }
         });
 
-        //Setting its position and add it to the frame
+        /*
+         * Setting "Start" button position and adding it to the frame
+         */
         start.setBounds(360, 190, 80, 40);
-        frame.add(start);
-        //Handling when "options" button is clicked
+        mainMenuFrame.add(start);
+
+        /*
+         * Handling when "Options" button is clicked
+         */
+        JButton options = new JButton("Options");
         options.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Options");
+
+                optionsFrame.setLocationRelativeTo(null);
+                mainMenuFrame.setVisible(false);
+                optionsFrame.add(goBack);
+                optionsFrame.setVisible(true);
+
             }
         });
 
-        //Setting its position and add it to the frame
+        /*
+         * Setting "Options" button position and adding it to the frame
+         */
         options.setBounds(360, 240, 80, 40);
-        frame.add(options);
+        mainMenuFrame.add(options);
 
-        //Handling when "exit" button is clicked
+        /*
+         * Handling when "Exit" button is clicked
+         */
+        JButton exit = new JButton("Exit");
         exit.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 System.exit(0);
+
             }
         });
 
-        //Setting its position and add it to the frame
+        /*
+         * Setting "Exit" button position and adding it to the frame
+         */
         exit.setBounds(360, 290, 80, 40);
-        frame.add(exit);
+        mainMenuFrame.add(exit);
 
-        //Set GUI to open in the centre of the screen and make it visible
-        frame.setLayout(null);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        /*
+         * Set GUI to open in the centre of the screen and make it visible
+         */
+        mainMenuFrame.setLayout(null);
+        mainMenuFrame.setLocationRelativeTo(null);
+        mainMenuFrame.setVisible(true);
+
     }
 }
