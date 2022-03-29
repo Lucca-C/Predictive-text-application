@@ -19,5 +19,4 @@ public class Dictionary {
     public void setWords(List<String> words) {
         this.words = words;
     }
-
 }
