@@ -1,9 +1,14 @@
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Dictionary {
     //-----FIELDS-----
-   private  List<String> words = List.of("w", "hello", "dog", "hell", "cat", "a", "hel","help","helps","helping",
-            "potato", "porr", "wack");
+   private FileReadWrite fRW = new FileReadWrite();
+   private ArrayList<String> words = fRW.FileToArray("src/TextFiles/words.txt");
+//   private  List<String> words = List.of("w", "hello", "dog", "hell", "cat", "a", "hel","help","helps","helping",
+//            "potato", "porr", "wack");
+
     //-----CONSTRUCTORS-----
     //-----METHODS-----
     public void print(){
@@ -13,10 +18,10 @@ public class Dictionary {
         }
     }
     //-----ACCESSORS & MUTATORS-----
-    public List<String> getWords() {
+    public ArrayList<String> getWords() {
         return words;
     }
-    public void setWords(List<String> words) {
+    public void setWords(ArrayList<String> words) {
         this.words = words;
     }
 }
