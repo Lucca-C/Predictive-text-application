@@ -1,12 +1,21 @@
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 class GUI {
 
-    private final JButton goBack = new JButton("Go Back");
-    private final JPanel dictionaryPanel = new JPanel();
+    private final JButton goBackFromDictionary = new JButton("Go Back");
+    private final JButton goBackFromOptions = new JButton("Go Back");
     private final JTextField textBox = new JTextField(30);
+    private final JFrame window = new JFrame("Predictive Text");
+    private final JPanel mainMenuPanel = new JPanel();
+    private final JPanel dictionaryPanel = new JPanel();
+    private final JPanel optionsPanel = new JPanel();
+    JButton firstPrediction = new JButton();
+    JButton secondPrediction = new JButton();
 
     /*
      * Main method
@@ -15,49 +24,32 @@ class GUI {
      */
     public static void main(String[] args) {
 
-        new GUI();
+        GUI gui = new GUI();
+        gui.createMainMenu();
+        gui.createDictionary();
+        gui.createOptions();
 
     }
 
     /*
-     * Constructor for frame and its components
+     * Method to create the Main Menu Frame
      */
-    public GUI() {
+    public void createMainMenu(){
 
         /*
-         * Creating the different frames within GUI
+         * Setting size and default close operation
          */
-        JFrame mainMenuFrame = new JFrame("Main Menu");
-        mainMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainMenuFrame.setSize(800, 600);
+        dictionaryPanel.setVisible(false);
+        optionsPanel.setVisible(false);
+        mainMenuPanel.setVisible(true);
+        window.setLocationRelativeTo(null);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setSize(800, 600);
 
-        JFrame dictionaryFrame = new JFrame("Dictionary");
-        dictionaryFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        dictionaryFrame.setSize(800, 600);
 
-        JFrame optionsFrame = new JFrame("Options");
-        optionsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        optionsFrame.setSize(800, 600);
+        window.add(dictionaryPanel);
 
-        /*
-         * Handling when "Go Back" button is pressed
-         */
-        goBack.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                dictionaryFrame.setLocationRelativeTo(null);
-                mainMenuFrame.setVisible(true);
-                dictionaryFrame.setVisible(false);
-
-            }
-        });
-
-        /*
-         * Setting "Go Back" button position and adding it to the frame
-         */
-        goBack.setBounds(10, 10, 80, 40);
+        window.add(optionsPanel);
 
 
         /*
@@ -69,12 +61,15 @@ class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                dictionaryFrame.setLocationRelativeTo(null);
-                mainMenuFrame.setVisible(false);
-                dictionaryFrame.add(goBack);
+                /*
+                 * Make the Main Menu invisible
+                 */
+                mainMenuPanel.setVisible(false);
+                dictionaryPanel.add(goBackFromDictionary);
+                textBox.setAlignmentX(Component.LEFT_ALIGNMENT);
                 dictionaryPanel.add(textBox);
-                dictionaryFrame.add(dictionaryPanel);
-                dictionaryFrame.setVisible(true);
+                window.add(dictionaryPanel);
+                dictionaryPanel.setVisible(true);
 
             }
         });
@@ -83,7 +78,7 @@ class GUI {
          * Setting "Start" button position and adding it to the frame
          */
         start.setBounds(360, 190, 80, 40);
-        mainMenuFrame.add(start);
+        mainMenuPanel.add(start);
 
         /*
          * Handling when "Options" button is clicked
@@ -94,10 +89,11 @@ class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                optionsFrame.setLocationRelativeTo(null);
-                mainMenuFrame.setVisible(false);
-                optionsFrame.add(goBack);
-                optionsFrame.setVisible(true);
+                mainMenuPanel.setVisible(false);
+                optionsPanel.add(goBackFromOptions);
+                textBox.setAlignmentX(Component.LEFT_ALIGNMENT);
+                window.add(optionsPanel);
+                optionsPanel.setVisible(true);
 
             }
         });
@@ -106,7 +102,8 @@ class GUI {
          * Setting "Options" button position and adding it to the frame
          */
         options.setBounds(360, 240, 80, 40);
-        mainMenuFrame.add(options);
+        mainMenuPanel.add(options);
+
 
         /*
          * Handling when "Exit" button is clicked
@@ -126,14 +123,86 @@ class GUI {
          * Setting "Exit" button position and adding it to the frame
          */
         exit.setBounds(360, 290, 80, 40);
-        mainMenuFrame.add(exit);
-
-        /*
-         * Set GUI to open in the centre of the screen and make it visible
-         */
-        mainMenuFrame.setLayout(null);
-        mainMenuFrame.setLocationRelativeTo(null);
-        mainMenuFrame.setVisible(true);
+        mainMenuPanel.add(exit);
+        mainMenuPanel.setVisible(true);
+        window.add(mainMenuPanel);
+        window.setVisible(true);
 
     }
+
+    /*
+     * Method to create the Dictionary window
+     */
+    public void createDictionary(){
+        /*
+         * Setting "Go Back" button position and adding it to the frame
+         */
+
+
+        goBackFromDictionary.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                dictionaryPanel.setVisible(false);
+                mainMenuPanel.setVisible(true);
+
+            }
+        });
+
+        textBox.getDocument().addDocumentListener(new MyDocumentListener());
+
+
+
+    }
+
+    class MyDocumentListener implements DocumentListener {
+
+        public void insertUpdate(DocumentEvent e) {
+            checkTextBox();
+        }
+        public void removeUpdate(DocumentEvent e) {
+            checkTextBox();
+        }
+        public void changedUpdate(DocumentEvent e) {
+
+        }
+
+    }
+
+    public void createOptions(){
+
+
+
+        goBackFromOptions.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                optionsPanel.setVisible(false);
+                mainMenuPanel.setVisible(true);
+
+            }
+        });
+
+    }
+
+    public void checkTextBox(){
+
+        String string = textBox.getText();
+        Dictionary dictionary = new Dictionary();
+        Trie t = new Trie(dictionary.getWords());
+        PredictiveText predictive = new PredictiveText(t);
+        System.out.println(predictive.prediction(string));
+
+        firstPrediction.setText(predictive.prediction(string).get(0));
+        secondPrediction.setText(predictive.prediction(string).get(1));
+        firstPrediction.setAlignmentX(Component.LEFT_ALIGNMENT);
+        secondPrediction.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        dictionaryPanel.add(firstPrediction);
+        dictionaryPanel.add(secondPrediction);
+        dictionaryPanel.setVisible(true);
+
+    }
+
 }
