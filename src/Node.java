@@ -11,7 +11,7 @@ public class Node {
 
     /**
      * Constructor that is called recursively .
-     * @param c
+     * @param c character field
      */
     public Node(char c) {
         this.c = c;
@@ -35,7 +35,7 @@ public class Node {
      * recursively call this method for the child.
      * If it is 1 character long,
      * Set "isWord" to true.
-     * @param word
+     * @param word string to insert into a node
      */
     public void insert(String word) {
         if (word == null || word.isEmpty())
