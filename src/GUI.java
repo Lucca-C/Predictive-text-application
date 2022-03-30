@@ -13,7 +13,6 @@ class GUI {
     private final JButton goBackFromDictionary = new JButton("Go Back");
     private final JButton goBackFromOptions = new JButton("Go Back");
     private final JTextField textBox = new JTextField(50);
-    //private final JTextArea textArea = new JTextArea(10,10);
     private final JFrame window = new JFrame("Predictive Text");
     private final JPanel mainMenuPanel = new JPanel();
     private final JPanel dictionaryPanel = new JPanel();
@@ -21,6 +20,7 @@ class GUI {
     JButton firstPrediction;
     JButton secondPrediction;
     JButton thirdPrediction;
+    int index = 0;
 
     /*
      * Main method
@@ -47,7 +47,6 @@ class GUI {
         dictionaryPanel.setVisible(false);
         optionsPanel.setVisible(false);
         mainMenuPanel.setVisible(true);
-        window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(800, 600);
 
@@ -128,6 +127,7 @@ class GUI {
         mainMenuPanel.setVisible(true);
         window.add(mainMenuPanel);
         window.setVisible(true);
+        window.setLocationRelativeTo(null);
 
     }
 
@@ -136,7 +136,8 @@ class GUI {
      */
     public void createDictionary(){
 
-        dictionaryPanel.add(goBackFromDictionary, BorderLayout.WEST);
+        dictionaryPanel.setLayout(new BorderLayout());
+        dictionaryPanel.add(goBackFromDictionary, BorderLayout.NORTH);
         dictionaryPanel.add(textBox, BorderLayout.SOUTH);
         //dictionaryPanel.add(textArea);
         //textArea.setAlignmentX(300);
@@ -146,9 +147,9 @@ class GUI {
         secondPrediction = new JButton(" ");
         thirdPrediction = new JButton(" ");
 
-        dictionaryPanel.add(firstPrediction, BorderLayout.NORTH);
-        dictionaryPanel.add(secondPrediction, BorderLayout.NORTH);
-        dictionaryPanel.add(thirdPrediction, BorderLayout.NORTH);
+        dictionaryPanel.add(firstPrediction, BorderLayout.CENTER);
+        dictionaryPanel.add(secondPrediction, BorderLayout.WEST);
+        dictionaryPanel.add(thirdPrediction, BorderLayout.EAST);
 
         window.add(dictionaryPanel);
         window.setVisible(true);
@@ -169,21 +170,24 @@ class GUI {
         firstPrediction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                completeWord1();
+                index = 0;
+                completeWord(index);
             }
         });
 
         secondPrediction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                completeWord2();
+                index = 1;
+                completeWord(index);
             }
         });
 
         thirdPrediction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                completeWord3();
+                index = 2;
+                completeWord(index);
             }
         });
 
@@ -280,7 +284,7 @@ class GUI {
 
     }
 
-    public void completeWord1(){
+    public void completeWord(int index){
 
         /*
          * Get two strings from the text-box, one will be to find the
@@ -316,7 +320,7 @@ class GUI {
              * Set the text-box to be all words already contained in it,
              * plus the new completed word
              */
-        textBox.setText(textBoxTwo + predictive.prediction(lastWord).get(0) + " ");
+        textBox.setText(textBoxTwo + predictive.prediction(lastWord).get(index) + " ");
             /*
              * Return focus to the text-box so user doesn't have to
              * click it every time
