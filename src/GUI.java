@@ -10,6 +10,7 @@ class GUI {
     /*
      * Initialise variables
      */
+    private final int listMax = 3;
     private final JButton goBackFromDictionary = new JButton("Go Back");
     private final JButton goBackFromOptions = new JButton("Go Back");
     private final JTextField textBox = new JTextField(70);
@@ -310,7 +311,7 @@ class GUI {
         String lastWord = splitString[splitString.length - 1];
         Dictionary dictionary = new Dictionary(1);
         Trie t = new Trie(dictionary.getWords());
-        PredictiveText predictive = new PredictiveText(t);
+        PredictiveText predictive = new PredictiveText(t, listMax);
 
         try {
 
@@ -376,7 +377,7 @@ class GUI {
         textBoxTwo = textBoxTwo.replaceAll(lastWord, "");
         Dictionary dictionary = new Dictionary(1);
         Trie t = new Trie(dictionary.getWords());
-        PredictiveText predictive = new PredictiveText(t);
+        PredictiveText predictive = new PredictiveText(t, listMax);
 
         try{
 
