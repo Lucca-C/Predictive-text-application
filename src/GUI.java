@@ -247,11 +247,53 @@ class GUI {
         spanish = new JButton("Spanish");
         french = new JButton("French");
 
+        languageSettingsPanel.add(english);
+        languageSettingsPanel.add(english);
+        languageSettingsPanel.add(english);
+        window.add(dictionaryPanel);
+        window.setVisible(true);
+
         english.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-               // dictionary.selectDictionary(1,0);
+               dictionary.selectDictionary(1,"0");
+
+            }
+        });
+
+        englishExtended.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                dictionary.selectDictionary(2,"0");
+
+            }
+        });
+
+        german.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                dictionary.selectDictionary(3,"0");
+
+            }
+        });
+
+        spanish.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                dictionary.selectDictionary(4,"0");
+
+            }
+        });
+
+        french.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                dictionary.selectDictionary(5,"0");
 
             }
         });

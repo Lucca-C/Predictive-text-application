@@ -27,10 +27,8 @@ public class Dictionary {
         } else if (4 == selection) {
             words = fRW.FileToArray("src/TextFiles/Dictionaries/es.txt");
         } else if (5 == selection) {
-            words = fRW.FileToArray("src/TextFiles/Dictionaries/de.txt");
-        } else if (6 == selection) {
             words = fRW.FileToArray("src/TextFiles/Dictionaries/fr.txt");
-        } else if (7 == selection) {
+        } else if (6 == selection) {
             words = fRW.FileToArray(filePath);
         } else {
             System.err.println("This dictionary does not exist defaulting to English");
