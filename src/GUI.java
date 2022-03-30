@@ -10,6 +10,7 @@ class GUI {
     /*
      * Initialise variables
      */
+    private final int listMax = 3;
     private final JButton goBackFromDictionary = new JButton("Go Back");
     private final JButton goBackFromOptions = new JButton("Go Back");
     private final JTextField textBox = new JTextField(70);
@@ -29,14 +30,7 @@ class GUI {
      *
      * @param args
      */
-    public static void main(String[] args) {
 
-        GUI gui = new GUI();
-        gui.createMainMenu();
-        gui.createDictionary();
-        gui.createOptions();
-
-    }
 
     /*
      * Method to create the Main Menu Frame
@@ -238,8 +232,6 @@ class GUI {
 
     public void createLanguageSettings(){
 
-        Dictionary dictionary = new Dictionary();
-
         JButton english, englishExtended, german, spanish, french;
         english = new JButton("English");
         englishExtended = new JButton("English Extended");
@@ -257,7 +249,7 @@ class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-               dictionary.selectDictionary(1,"0");
+                Dictionary dictionary = new Dictionary(1);
 
             }
         });
@@ -266,7 +258,7 @@ class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                dictionary.selectDictionary(2,"0");
+                Dictionary dictionary = new Dictionary(2);
 
             }
         });
@@ -275,7 +267,7 @@ class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                dictionary.selectDictionary(3,"0");
+                Dictionary dictionary = new Dictionary(3);
 
             }
         });
@@ -284,7 +276,7 @@ class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                dictionary.selectDictionary(4,"0");
+                Dictionary dictionary = new Dictionary(4);
 
             }
         });
@@ -293,7 +285,7 @@ class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                dictionary.selectDictionary(5,"0");
+                Dictionary dictionary = new Dictionary(5);
 
             }
         });
@@ -317,9 +309,9 @@ class GUI {
          * to check against the dictionary of completed words
          */
         String lastWord = splitString[splitString.length - 1];
-        Dictionary dictionary = new Dictionary();
+        Dictionary dictionary = new Dictionary(1);
         Trie t = new Trie(dictionary.getWords());
-        PredictiveText predictive = new PredictiveText(t);
+        PredictiveText predictive = new PredictiveText(t, listMax);
 
         try {
 
@@ -383,9 +375,9 @@ class GUI {
          * uncompleted word
          */
         textBoxTwo = textBoxTwo.replaceAll(lastWord, "");
-        Dictionary dictionary = new Dictionary();
+        Dictionary dictionary = new Dictionary(1);
         Trie t = new Trie(dictionary.getWords());
-        PredictiveText predictive = new PredictiveText(t);
+        PredictiveText predictive = new PredictiveText(t, listMax);
 
         try{
 
