@@ -10,7 +10,6 @@ public class Dictionary {
      * Method to select which dictionary is being utilised.
      *
      * @param selection Correlates to a numbered dictionary and is passed through from the gui
-     * @param filePath  The file path of the custom dictionary
      */
     public Dictionary(int selection) {
         //Default file path (so it doesn't throw errors
