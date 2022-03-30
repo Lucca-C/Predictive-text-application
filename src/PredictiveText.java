@@ -12,17 +12,14 @@ public class PredictiveText {
     }
 
     //-----METHODS-----
-    private boolean find(String target, boolean exact) {
+    private boolean find(String target, boolean specific) {
         TrieNode lastNode = trie.getRoot();
         for (char c : target.toCharArray()) {
             lastNode = lastNode.getChildren().get(c);
             if (lastNode == null)
                 return false;
         }
-        return !exact || lastNode.isWord();
-    }
-    private boolean find(String target) {
-        return find(target, false);
+        return !specific || lastNode.isWord();
     }
     private void helper(TrieNode root, List<String> list, StringBuffer curr) {
         if (root.isWord()) {
