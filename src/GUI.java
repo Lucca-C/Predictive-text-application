@@ -224,8 +224,20 @@ class GUI {
 
     public void checkTextBox(){
 
+        /*
+         * Get the contents of the text-box as a String
+         */
         String text = textBox.getText();
+
+        /*
+         * Split the string by blank spaces
+         */
         String[] splitString = text.split(" ");
+
+        /*
+         * lastWord here is the uncompleted word we want
+         * to check against the dictionary of completed words
+         */
         String lastWord = splitString[splitString.length - 1];
         Dictionary dictionary = new Dictionary();
         Trie t = new Trie(dictionary.getWords());
@@ -270,18 +282,46 @@ class GUI {
 
     public void completeWord1(){
 
-        String text = textBox.getText();
-        String[] splitString = text.split(" ");
+        /*
+         * Get two strings from the text-box, one will be to find the
+         * last word (uncompleted word) in the text field, the other the
+         * contents of the text-box without the last word
+         */
+        String textBoxOne = textBox.getText();
+        String textBoxTwo = textBox.getText();
+
+        /*
+         * Split the string into an array using blank spaces
+         */
+        String[] splitString = textBoxOne.split(" ");
+
+        /*
+         * lastWord is the last element in the array
+         */
         String lastWord = splitString[splitString.length - 1];
+
+        /*
+         * Using the found last word, replace this with nothing so
+         * when the text-box text is set, it doesn't contain an
+         * uncompleted word
+         */
+        textBoxTwo = textBoxTwo.replaceAll(lastWord, "");
         Dictionary dictionary = new Dictionary();
         Trie t = new Trie(dictionary.getWords());
         PredictiveText predictive = new PredictiveText(t);
+
         try{
 
             /*
-             * Replace the uncompleted word in the text field with the completed word
+             * Set the text-box to be all words already contained in it,
+             * plus the new completed word
              */
-        textBox.setText(predictive.prediction(lastWord).get(0) + " ");
+        textBox.setText(textBoxTwo + predictive.prediction(lastWord).get(0) + " ");
+            /*
+             * Return focus to the text-box so user doesn't have to
+             * click it every time
+             */
+        textBox.requestFocus();
 
         } catch (IndexOutOfBoundsException e) {
 
@@ -290,13 +330,22 @@ class GUI {
     }
     public void completeWord2(){
 
-        String text = textBox.getText();
+        String textBoxOne = textBox.getText();
+        String textBoxTwo = textBox.getText();
+
+        String[] splitString = textBoxOne.split(" ");
+
+        String lastWord = splitString[splitString.length - 1];
+
+        textBoxTwo = textBoxTwo.replaceAll(lastWord, "");
         Dictionary dictionary = new Dictionary();
         Trie t = new Trie(dictionary.getWords());
         PredictiveText predictive = new PredictiveText(t);
+
         try{
 
-            textBox.setText(predictive.prediction(text).get(1) + " ");
+            textBox.setText(textBoxTwo + predictive.prediction(lastWord).get(1) + " ");
+            textBox.requestFocus();
 
         } catch (IndexOutOfBoundsException e) {
 
@@ -305,13 +354,22 @@ class GUI {
     }
     public void completeWord3(){
 
-        String text = textBox.getText();
+        String textBoxOne = textBox.getText();
+        String textBoxTwo = textBox.getText();
+
+        String[] splitString = textBoxOne.split(" ");
+
+        String lastWord = splitString[splitString.length - 1];
+
+        textBoxTwo = textBoxTwo.replaceAll(lastWord, "");
         Dictionary dictionary = new Dictionary();
         Trie t = new Trie(dictionary.getWords());
         PredictiveText predictive = new PredictiveText(t);
+
         try{
 
-            textBox.setText(predictive.prediction(text).get(2) + " ");
+            textBox.setText(textBoxTwo + predictive.prediction(lastWord).get(2) + " ");
+            textBox.requestFocus();
 
         } catch (IndexOutOfBoundsException e) {
 
