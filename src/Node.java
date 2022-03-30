@@ -1,9 +1,9 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class TrieNode {
+public class Node {
     //-----FIELDS-----
-    private Map<Character, TrieNode> children;
+    private Map<Character, Node> children;
     private char c;
     private boolean isWord;
 
@@ -13,7 +13,7 @@ public class TrieNode {
      * Constructor that is called recursively .
      * @param c
      */
-    public TrieNode(char c) {
+    public Node(char c) {
         this.c = c;
         children = new HashMap<>();
     }
@@ -21,7 +21,7 @@ public class TrieNode {
     /**
      * Constructor that is called once to make the root.
      */
-    public TrieNode() {
+    public Node() {
         children = new HashMap<>();
     }
 
@@ -41,9 +41,9 @@ public class TrieNode {
         if (word == null || word.isEmpty())
             return;
         char firstChar = word.charAt(0);
-        TrieNode child = children.get(firstChar);
+        Node child = children.get(firstChar);
         if (child == null) {
-            child = new TrieNode(firstChar);
+            child = new Node(firstChar);
             children.put(firstChar, child);
         }
         if (word.length() > 1)
@@ -53,10 +53,10 @@ public class TrieNode {
     }
 
     //-----ACCESSORS & MUTATORS-----
-    public Map<Character, TrieNode> getChildren() {
+    public Map<Character, Node> getChildren() {
         return children;
     }
-    public void setChildren(Map<Character, TrieNode> children) {
+    public void setChildren(Map<Character, Node> children) {
         this.children = children;
     }
     public char getC() {
