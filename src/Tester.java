@@ -1,15 +1,11 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Tester {
     public static void main(String[] args){
-        testGUI();
+       testPrediction();
     }
-
     public static void testPrediction(){
         Dictionary d = new Dictionary(1);
         Trie t = new Trie(d.getWords());
-        PredictiveText p = new PredictiveText(t);
+        PredictiveText p = new PredictiveText(t, 1);
         System.out.println(p.prediction("p"));
     }
     public static void testGUI(){
