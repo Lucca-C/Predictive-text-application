@@ -1,9 +1,8 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class Trie {
     //-----FIELDS-----
-    private TrieNode root;
+    private Node root;
 
     //-----CONSTRUCTORS-----
     /**
@@ -12,16 +11,16 @@ public class Trie {
      * @param words arrayList of Strings. These are the dictionary words.
      */
     public Trie(List<String> words) {
-        root = new TrieNode();
+        root = new Node();
         for (String word : words)
             root.insert(word);
     }
 
     //-----ACCESSORS & MUTATORS
-    public TrieNode getRoot() {
+    public Node getRoot() {
         return root;
     }
-    public void setRoot(TrieNode root) {
+    public void setRoot(Node root) {
         this.root = root;
     }
 }
