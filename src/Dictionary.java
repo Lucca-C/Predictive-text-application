@@ -6,12 +6,14 @@ public class Dictionary {
     private ArrayList<String> words;
 
     //-----CONSTRUCTORS-----
+
+    //-----METHODS-----
     /**
      * Method to select which dictionary is being utilised.
      *
      * @param selection Correlates to a numbered dictionary and is passed through from the gui
      */
-    public Dictionary(int selection) {
+    public int selectDictionary(int selection) {
         //Default file path (so it doesn't throw errors
         String filePath = "src/TextFiles/Dictionaries/en.txt";
         if (1 == selection) {
@@ -24,14 +26,13 @@ public class Dictionary {
             words = fRW.FileToArray("src/TextFiles/Dictionaries/es.txt");
         } else if (5 == selection) {
             words = fRW.FileToArray("src/TextFiles/Dictionaries/fr.txt");
-        } else if (6 == selection) {
-            words = fRW.FileToArray(filePath);
         } else {
             System.err.println("This dictionary does not exist. Defaulting to English");
             words = fRW.FileToArray("src/TextFiles/Dictionaries/en.txt");
         }
+        return selection;
     }
-    //-----METHODS-----
+
     /**
      * Method to print all the words in the "words" array
      */

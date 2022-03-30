@@ -19,6 +19,8 @@ class GUI {
     private final JPanel dictionaryPanel = new JPanel();
     private final JPanel settingsPanel = new JPanel();
     private final JPanel languageSettingsPanel = new JPanel();
+    private Dictionary dictionary = new Dictionary();
+
     JButton firstPrediction;
     JButton secondPrediction;
     JButton thirdPrediction;
@@ -36,6 +38,7 @@ class GUI {
      * Method to create the Main Menu Frame
      */
     public void createMainMenu(){
+
 
         /*
          * Setting size and default close operation
@@ -127,6 +130,7 @@ class GUI {
      * Method to create the Dictionary window
      */
     public void createDictionary(){
+        dictionary.selectDictionary(1);
 
         dictionaryPanel.add(goBackFromDictionary, BorderLayout.NORTH);
         dictionaryPanel.add(textBox, BorderLayout.CENTER);
@@ -231,7 +235,6 @@ class GUI {
     }
 
     public void createLanguageSettings(){
-
         JButton english, englishExtended, german, spanish, french;
         english = new JButton("English");
         englishExtended = new JButton("English Extended");
@@ -248,45 +251,31 @@ class GUI {
         english.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                Dictionary dictionary = new Dictionary(1);
-
+                dictionary.selectDictionary(1);
             }
         });
-
         englishExtended.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                Dictionary dictionary = new Dictionary(2);
-
+                dictionary.selectDictionary(2);
             }
         });
-
         german.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                Dictionary dictionary = new Dictionary(3);
-
+                dictionary.selectDictionary(3);
             }
         });
-
         spanish.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                Dictionary dictionary = new Dictionary(4);
-
+                dictionary.selectDictionary(4);
             }
         });
-
         french.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                Dictionary dictionary = new Dictionary(5);
-
+                dictionary.selectDictionary(5);
             }
         });
 
@@ -309,7 +298,6 @@ class GUI {
          * to check against the dictionary of completed words
          */
         String lastWord = splitString[splitString.length - 1];
-        Dictionary dictionary = new Dictionary(1);
         Trie t = new Trie(dictionary.getWords());
         PredictiveText predictive = new PredictiveText(t, listMax);
 
@@ -375,7 +363,6 @@ class GUI {
          * uncompleted word
          */
         textBoxTwo = textBoxTwo.replaceAll(lastWord, "");
-        Dictionary dictionary = new Dictionary(1);
         Trie t = new Trie(dictionary.getWords());
         PredictiveText predictive = new PredictiveText(t, listMax);
 
