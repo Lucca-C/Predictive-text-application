@@ -56,11 +56,12 @@ public class FileReadWrite {
      * Method that writes to the text file.
      *
      * @param input    The input to be added to the text file.
-     * @param filePath Defines the path of the targeted text file.
+     * @param selection Defines the path of the targeted text file.
      */
-    public void FileWrite(String input, String filePath) {
+    public void FileWrite(String input, int selection) {
         boolean duplicate;
-
+        String filePath = selectLanguage(selection);
+        System.out.println(filePath);
         try {
             duplicate = CheckDuplicates(input, filePath);
             FileWriter fw = new FileWriter(filePath, true); //the true will append the new data
@@ -74,6 +75,25 @@ public class FileReadWrite {
         } catch (IOException ioe) {
             System.err.println("IOException: " + ioe.getMessage());
         }
+    }
+
+    public String selectLanguage(int selection){
+        String filePath;
+        if (1 == selection) {
+            filePath = "src/TextFiles/Dictionaries/en.txt";
+        } else if (2 == selection) {
+            filePath = "src/TextFiles/Dictionaries/en2.txt";
+        } else if (3 == selection) {
+            filePath = "src/TextFiles/Dictionaries/de.txt";
+        } else if (4 == selection) {
+            filePath = "src/TextFiles/Dictionaries/es.txt";
+        } else if (5 == selection) {
+            filePath = "src/TextFiles/Dictionaries/fr.txt";
+        } else {
+            System.err.println("This dictionary does not exist. Defaulting to English");
+            filePath = "src/TextFiles/Dictionaries/en.txt";
+        }
+        return  filePath;
     }
 
     /**

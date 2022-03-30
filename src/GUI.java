@@ -10,6 +10,7 @@ class GUI {
     /*
      * Initialise variables
      */
+    private int selection = 1;
     private final int listMax = 3;
     private final JButton goBackFromDictionary = new JButton("Go Back");
     private final JButton goBackFromOptions = new JButton("Go Back");
@@ -19,6 +20,7 @@ class GUI {
     private final JPanel dictionaryPanel = new JPanel();
     private final JPanel settingsPanel = new JPanel();
     private final JPanel languageSettingsPanel = new JPanel();
+    private final JPanel addToDictionaryPanel = new JPanel();
     private Dictionary dictionary = new Dictionary();
 
     JButton firstPrediction;
@@ -45,13 +47,14 @@ class GUI {
          */
         dictionaryPanel.setVisible(false);
         settingsPanel.setVisible(false);
+        languageSettingsPanel.setVisible(false);
+        addToDictionaryPanel.setVisible(false);
         mainMenuPanel.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(800, 600);
 
 
         window.add(dictionaryPanel);
-
         window.add(settingsPanel);
 
 
@@ -88,7 +91,6 @@ class GUI {
             public void actionPerformed(ActionEvent e) {
 
                 mainMenuPanel.setVisible(false);
-                textBox.setAlignmentX(Component.LEFT_ALIGNMENT);
                 window.add(settingsPanel);
                 settingsPanel.setVisible(true);
 
@@ -130,18 +132,19 @@ class GUI {
      * Method to create the Dictionary window
      */
     public void createDictionary(){
+
         dictionary.selectDictionary(1);
 
-        dictionaryPanel.add(goBackFromDictionary, BorderLayout.NORTH);
-        dictionaryPanel.add(textBox, BorderLayout.CENTER);
+        dictionaryPanel.add(goBackFromDictionary);
+        dictionaryPanel.add(textBox);
 
         firstPrediction = new JButton(" ");
         secondPrediction = new JButton(" ");
         thirdPrediction = new JButton(" ");
 
-        dictionaryPanel.add(firstPrediction, BorderLayout.SOUTH);
-        dictionaryPanel.add(secondPrediction, BorderLayout.SOUTH);
-        dictionaryPanel.add(thirdPrediction, BorderLayout.SOUTH);
+        dictionaryPanel.add(firstPrediction);
+        dictionaryPanel.add(secondPrediction);
+        dictionaryPanel.add(thirdPrediction);
 
         window.add(dictionaryPanel);
         window.setVisible(true);
@@ -182,7 +185,6 @@ class GUI {
                 completeWord(index);
             }
         });
-
     }
 
     class MyDocumentListener implements DocumentListener {
@@ -200,16 +202,18 @@ class GUI {
         public void changedUpdate(DocumentEvent e) {
 
         }
-
     }
 
-    public void createOptions(){
+    public void createSettings(){
 
         selectLanguage = new JButton("Select Language");
+        JButton addToDictionary = new JButton("Add to Dictionary");
         settingsPanel.add(goBackFromOptions);
         settingsPanel.add(selectLanguage);
-        window.add(dictionaryPanel);
+        settingsPanel.add(addToDictionary);
+        window.add(settingsPanel);
         window.setVisible(true);
+
 
         goBackFromOptions.addActionListener(new ActionListener() {
 
@@ -217,6 +221,7 @@ class GUI {
             public void actionPerformed(ActionEvent e) {
 
                 settingsPanel.setVisible(false);
+                languageSettingsPanel.setVisible(false);
                 mainMenuPanel.setVisible(true);
 
             }
@@ -227,57 +232,120 @@ class GUI {
             public void actionPerformed(ActionEvent e) {
 
             settingsPanel.setVisible(false);
+            window.add(languageSettingsPanel);
             languageSettingsPanel.setVisible(true);
 
             }
         });
 
+        addToDictionary.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                settingsPanel.setVisible(false);
+                window.add(addToDictionaryPanel);
+                addToDictionaryPanel.setVisible(true);
+
+            }
+        });
     }
 
     public void createLanguageSettings(){
-        JButton english, englishExtended, german, spanish, french;
-        english = new JButton("English");
-        englishExtended = new JButton("English Extended");
-        german = new JButton("German");
-        spanish = new JButton("Spanish");
-        french = new JButton("French");
 
+        JButton goBackFromLanguageOptions = new JButton("Go Back");
+        JButton english = new JButton("English");
+        JButton englishExtended = new JButton("English Extended");
+        JButton german = new JButton("German");
+        JButton spanish = new JButton("Spanish");
+        JButton french = new JButton("French");
+
+        languageSettingsPanel.add(goBackFromOptions);
         languageSettingsPanel.add(english);
-        languageSettingsPanel.add(english);
-        languageSettingsPanel.add(english);
-        window.add(dictionaryPanel);
-        window.setVisible(true);
+        languageSettingsPanel.add(englishExtended);
+        languageSettingsPanel.add(german);
+        languageSettingsPanel.add(spanish);
+        languageSettingsPanel.add(french);
+
+        goBackFromLanguageOptions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                languageSettingsPanel.setVisible(false);
+                settingsPanel.setVisible(true);
+
+            }
+        });
 
         english.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dictionary.selectDictionary(1);
+                selection = 1;
             }
         });
+
         englishExtended.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dictionary.selectDictionary(2);
+                selection = 2;
             }
         });
+
         german.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dictionary.selectDictionary(3);
+                selection = 3;
             }
         });
+
         spanish.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dictionary.selectDictionary(4);
+                selection = 4;
             }
         });
+
         french.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dictionary.selectDictionary(5);
+                selection = 5;
             }
         });
+
+        window.setVisible(true);
+
+    }
+
+    public void createAddToDictionary(){
+
+        String text = "";
+        JButton enter = new JButton("Enter");
+        JTextField addToDictionary = new JTextField(30);
+
+        addToDictionary.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String text = addToDictionary.getText();
+
+            }
+        });
+
+        enter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                FileReadWrite frw = new FileReadWrite();
+                frw.FileWrite(text, selection);
+
+            }
+        });
+
+        addToDictionaryPanel.add(addToDictionary);
+        addToDictionaryPanel.add(enter);
+        window.add(addToDictionaryPanel);
+        window.setVisible(true);
 
     }
 
