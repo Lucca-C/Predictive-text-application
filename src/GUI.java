@@ -12,15 +12,17 @@ class GUI {
      */
     private final JButton goBackFromDictionary = new JButton("Go Back");
     private final JButton goBackFromOptions = new JButton("Go Back");
-    private final JTextField textBox = new JTextField(50);
-    //private final JTextArea textArea = new JTextArea(10,10);
+    private final JTextField textBox = new JTextField(70);
     private final JFrame window = new JFrame("Predictive Text");
     private final JPanel mainMenuPanel = new JPanel();
     private final JPanel dictionaryPanel = new JPanel();
-    private final JPanel optionsPanel = new JPanel();
+    private final JPanel settingsPanel = new JPanel();
+    private final JPanel languageSettingsPanel = new JPanel();
     JButton firstPrediction;
     JButton secondPrediction;
     JButton thirdPrediction;
+    JButton selectLanguage;
+    int index = 0;
 
     /*
      * Main method
@@ -45,16 +47,15 @@ class GUI {
          * Setting size and default close operation
          */
         dictionaryPanel.setVisible(false);
-        optionsPanel.setVisible(false);
+        settingsPanel.setVisible(false);
         mainMenuPanel.setVisible(true);
-        window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(800, 600);
 
 
         window.add(dictionaryPanel);
 
-        window.add(optionsPanel);
+        window.add(settingsPanel);
 
 
         /*
@@ -78,31 +79,28 @@ class GUI {
         /*
          * Setting "Start" button position and adding it to the frame
          */
-        start.setBounds(360, 190, 80, 40);
         mainMenuPanel.add(start);
 
         /*
-         * Handling when "Options" button is clicked
+         * Handling when "Settings" button is clicked
          */
-        JButton options = new JButton("Options");
+        JButton options = new JButton("Settings");
         options.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 mainMenuPanel.setVisible(false);
-                optionsPanel.add(goBackFromOptions);
                 textBox.setAlignmentX(Component.LEFT_ALIGNMENT);
-                window.add(optionsPanel);
-                optionsPanel.setVisible(true);
+                window.add(settingsPanel);
+                settingsPanel.setVisible(true);
 
             }
         });
 
         /*
-         * Setting "Options" button position and adding it to the frame
+         * Setting "Settings" button position and adding it to the frame
          */
-        options.setBounds(360, 240, 80, 40);
         mainMenuPanel.add(options);
 
 
@@ -123,11 +121,11 @@ class GUI {
         /*
          * Setting "Exit" button position and adding it to the frame
          */
-        exit.setBounds(360, 290, 80, 40);
         mainMenuPanel.add(exit);
         mainMenuPanel.setVisible(true);
         window.add(mainMenuPanel);
         window.setVisible(true);
+        window.setLocationRelativeTo(null);
 
     }
 
@@ -136,19 +134,16 @@ class GUI {
      */
     public void createDictionary(){
 
-        dictionaryPanel.add(goBackFromDictionary, BorderLayout.WEST);
-        dictionaryPanel.add(textBox, BorderLayout.SOUTH);
-        //dictionaryPanel.add(textArea);
-        //textArea.setAlignmentX(300);
-        //textArea.setAlignmentY(300);
+        dictionaryPanel.add(goBackFromDictionary, BorderLayout.NORTH);
+        dictionaryPanel.add(textBox, BorderLayout.CENTER);
 
         firstPrediction = new JButton(" ");
         secondPrediction = new JButton(" ");
         thirdPrediction = new JButton(" ");
 
-        dictionaryPanel.add(firstPrediction, BorderLayout.NORTH);
-        dictionaryPanel.add(secondPrediction, BorderLayout.NORTH);
-        dictionaryPanel.add(thirdPrediction, BorderLayout.NORTH);
+        dictionaryPanel.add(firstPrediction, BorderLayout.SOUTH);
+        dictionaryPanel.add(secondPrediction, BorderLayout.SOUTH);
+        dictionaryPanel.add(thirdPrediction, BorderLayout.SOUTH);
 
         window.add(dictionaryPanel);
         window.setVisible(true);
@@ -169,21 +164,24 @@ class GUI {
         firstPrediction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                completeWord1();
+                index = 0;
+                completeWord(index);
             }
         });
 
         secondPrediction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                completeWord2();
+                index = 1;
+                completeWord(index);
             }
         });
 
         thirdPrediction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                completeWord3();
+                index = 2;
+                completeWord(index);
             }
         });
 
@@ -209,13 +207,93 @@ class GUI {
 
     public void createOptions(){
 
+        selectLanguage = new JButton("Select Language");
+        settingsPanel.add(goBackFromOptions);
+        settingsPanel.add(selectLanguage);
+        window.add(dictionaryPanel);
+        window.setVisible(true);
+
         goBackFromOptions.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                optionsPanel.setVisible(false);
+                settingsPanel.setVisible(false);
                 mainMenuPanel.setVisible(true);
+
+            }
+        });
+
+        selectLanguage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            settingsPanel.setVisible(false);
+            languageSettingsPanel.setVisible(true);
+
+            }
+        });
+
+    }
+
+    public void createLanguageSettings(){
+
+        Dictionary dictionary = new Dictionary();
+
+        JButton english, englishExtended, german, spanish, french;
+        english = new JButton("English");
+        englishExtended = new JButton("English Extended");
+        german = new JButton("German");
+        spanish = new JButton("Spanish");
+        french = new JButton("French");
+
+        languageSettingsPanel.add(english);
+        languageSettingsPanel.add(english);
+        languageSettingsPanel.add(english);
+        window.add(dictionaryPanel);
+        window.setVisible(true);
+
+        english.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+               dictionary.selectDictionary(1,"0");
+
+            }
+        });
+
+        englishExtended.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                dictionary.selectDictionary(2,"0");
+
+            }
+        });
+
+        german.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                dictionary.selectDictionary(3,"0");
+
+            }
+        });
+
+        spanish.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                dictionary.selectDictionary(4,"0");
+
+            }
+        });
+
+        french.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                dictionary.selectDictionary(5,"0");
 
             }
         });
@@ -242,7 +320,6 @@ class GUI {
         Dictionary dictionary = new Dictionary();
         Trie t = new Trie(dictionary.getWords());
         PredictiveText predictive = new PredictiveText(t);
-
 
         try {
 
@@ -280,7 +357,7 @@ class GUI {
 
     }
 
-    public void completeWord1(){
+    public void completeWord(int index){
 
         /*
          * Get two strings from the text-box, one will be to find the
@@ -316,60 +393,12 @@ class GUI {
              * Set the text-box to be all words already contained in it,
              * plus the new completed word
              */
-        textBox.setText(textBoxTwo + predictive.prediction(lastWord).get(0) + " ");
+        textBox.setText(textBoxTwo + predictive.prediction(lastWord).get(index) + " ");
             /*
              * Return focus to the text-box so user doesn't have to
              * click it every time
              */
         textBox.requestFocus();
-
-        } catch (IndexOutOfBoundsException e) {
-
-        }
-
-    }
-    public void completeWord2(){
-
-        String textBoxOne = textBox.getText();
-        String textBoxTwo = textBox.getText();
-
-        String[] splitString = textBoxOne.split(" ");
-
-        String lastWord = splitString[splitString.length - 1];
-
-        textBoxTwo = textBoxTwo.replaceAll(lastWord, "");
-        Dictionary dictionary = new Dictionary();
-        Trie t = new Trie(dictionary.getWords());
-        PredictiveText predictive = new PredictiveText(t);
-
-        try{
-
-            textBox.setText(textBoxTwo + predictive.prediction(lastWord).get(1) + " ");
-            textBox.requestFocus();
-
-        } catch (IndexOutOfBoundsException e) {
-
-        }
-
-    }
-    public void completeWord3(){
-
-        String textBoxOne = textBox.getText();
-        String textBoxTwo = textBox.getText();
-
-        String[] splitString = textBoxOne.split(" ");
-
-        String lastWord = splitString[splitString.length - 1];
-
-        textBoxTwo = textBoxTwo.replaceAll(lastWord, "");
-        Dictionary dictionary = new Dictionary();
-        Trie t = new Trie(dictionary.getWords());
-        PredictiveText predictive = new PredictiveText(t);
-
-        try{
-
-            textBox.setText(textBoxTwo + predictive.prediction(lastWord).get(2) + " ");
-            textBox.requestFocus();
 
         } catch (IndexOutOfBoundsException e) {
 
