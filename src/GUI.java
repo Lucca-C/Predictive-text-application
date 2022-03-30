@@ -7,9 +7,12 @@ import javax.swing.event.DocumentListener;
 
 class GUI {
 
+    /*
+     * Initialise variables
+     */
     private final JButton goBackFromDictionary = new JButton("Go Back");
     private final JButton goBackFromOptions = new JButton("Go Back");
-    private final JTextField textBox = new JTextField(30);
+    private final JTextField textBox = new JTextField(50);
     private final JFrame window = new JFrame("Predictive Text");
     private final JPanel mainMenuPanel = new JPanel();
     private final JPanel dictionaryPanel = new JPanel();
@@ -132,7 +135,6 @@ class GUI {
      */
     public void createDictionary(){
 
-        window.add(dictionaryPanel);
         dictionaryPanel.add(goBackFromDictionary, BorderLayout.WEST);
         dictionaryPanel.add(textBox, BorderLayout.SOUTH);
 
@@ -160,12 +162,35 @@ class GUI {
 
         textBox.getDocument().addDocumentListener(new MyDocumentListener());
 
+        firstPrediction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                completeWord1();
+            }
+        });
 
+        secondPrediction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                completeWord2();
+            }
+        });
+
+        thirdPrediction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                completeWord3();
+            }
+        });
 
     }
 
     class MyDocumentListener implements DocumentListener {
 
+        /*
+         * Continuous check for if a letter is added or removed in the text field
+         * @param e
+         */
         public void insertUpdate(DocumentEvent e) {
             checkTextBox();
         }
@@ -179,8 +204,6 @@ class GUI {
     }
 
     public void createOptions(){
-
-
 
         goBackFromOptions.addActionListener(new ActionListener() {
 
@@ -202,11 +225,88 @@ class GUI {
         Trie t = new Trie(dictionary.getWords());
         PredictiveText predictive = new PredictiveText(t);
 
-        firstPrediction.setText(predictive.prediction(string).get(0));
-        secondPrediction.setText(predictive.prediction(string).get(1));
-        thirdPrediction.setText(predictive.prediction(string).get(2));
+
+        try {
+
+            /*
+             * Set the button label to the predicted word
+             */
+            firstPrediction.setText(predictive.prediction(string).get(0));
+
+        }
+
+        catch (IndexOutOfBoundsException e){
+
+        }
+
+        try {
+
+            secondPrediction.setText(predictive.prediction(string).get(1));
+
+        }
+
+        catch (IndexOutOfBoundsException e){
+
+        }
+
+        try {
+
+            thirdPrediction.setText(predictive.prediction(string).get(2));
+
+        }
+
+        catch (IndexOutOfBoundsException e){
+
+        }
         dictionaryPanel.setVisible(true);
 
     }
 
+    public void completeWord1(){
+
+        String text = textBox.getText();
+        Dictionary dictionary = new Dictionary();
+        Trie t = new Trie(dictionary.getWords());
+        PredictiveText predictive = new PredictiveText(t);
+        try{
+
+            /*
+             * Replace the uncompleted word in the text field with the completed word
+             */
+        textBox.setText(predictive.prediction(text).get(0) + " ");
+
+        } catch (IndexOutOfBoundsException e) {
+
+        }
+
+    }
+    public void completeWord2(){
+
+        String text = textBox.getText();
+        Dictionary dictionary = new Dictionary();
+        Trie t = new Trie(dictionary.getWords());
+        PredictiveText predictive = new PredictiveText(t);
+        try{
+
+            textBox.setText(predictive.prediction(text).get(1) + " ");
+
+        } catch (IndexOutOfBoundsException e) {
+
+        }
+
+    }
+    public void completeWord3(){
+
+        String text = textBox.getText();
+        Dictionary dictionary = new Dictionary();
+        Trie t = new Trie(dictionary.getWords());
+        PredictiveText predictive = new PredictiveText(t);
+        try{
+
+            textBox.setText(predictive.prediction(text).get(2) + " ");
+
+        } catch (IndexOutOfBoundsException e) {
+
+        }
+    }
 }
