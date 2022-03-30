@@ -43,20 +43,9 @@ public class Dictionary {
     }
 
     //-----ACCESSORS & MUTATORS-----
-    /**
-     * accessor method for words array
-     *
-     * @return the words array
-     */
     public ArrayList<String> getWords() {
         return words;
     }
-
-    /**
-     * mutator method for words array
-     *
-     * @param words the words array
-     */
     public void setWords(ArrayList<String> words) {
         this.words = words;
     }
