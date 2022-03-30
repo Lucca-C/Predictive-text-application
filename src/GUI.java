@@ -13,6 +13,7 @@ class GUI {
     private final JButton goBackFromDictionary = new JButton("Go Back");
     private final JButton goBackFromOptions = new JButton("Go Back");
     private final JTextField textBox = new JTextField(50);
+    //private final JTextArea textArea = new JTextArea(10,10);
     private final JFrame window = new JFrame("Predictive Text");
     private final JPanel mainMenuPanel = new JPanel();
     private final JPanel dictionaryPanel = new JPanel();
@@ -137,6 +138,9 @@ class GUI {
 
         dictionaryPanel.add(goBackFromDictionary, BorderLayout.WEST);
         dictionaryPanel.add(textBox, BorderLayout.SOUTH);
+        //dictionaryPanel.add(textArea);
+        //textArea.setAlignmentX(300);
+        //textArea.setAlignmentY(300);
 
         firstPrediction = new JButton(" ");
         secondPrediction = new JButton(" ");
@@ -220,7 +224,9 @@ class GUI {
 
     public void checkTextBox(){
 
-        String string = textBox.getText();
+        String text = textBox.getText();
+        String[] splitString = text.split(" ");
+        String lastWord = splitString[splitString.length - 1];
         Dictionary dictionary = new Dictionary();
         Trie t = new Trie(dictionary.getWords());
         PredictiveText predictive = new PredictiveText(t);
@@ -231,7 +237,7 @@ class GUI {
             /*
              * Set the button label to the predicted word
              */
-            firstPrediction.setText(predictive.prediction(string).get(0));
+            firstPrediction.setText(predictive.prediction(lastWord).get(0));
 
         }
 
@@ -241,7 +247,7 @@ class GUI {
 
         try {
 
-            secondPrediction.setText(predictive.prediction(string).get(1));
+            secondPrediction.setText(predictive.prediction(lastWord).get(1));
 
         }
 
@@ -251,7 +257,7 @@ class GUI {
 
         try {
 
-            thirdPrediction.setText(predictive.prediction(string).get(2));
+            thirdPrediction.setText(predictive.prediction(lastWord).get(2));
 
         }
 
@@ -265,6 +271,8 @@ class GUI {
     public void completeWord1(){
 
         String text = textBox.getText();
+        String[] splitString = text.split(" ");
+        String lastWord = splitString[splitString.length - 1];
         Dictionary dictionary = new Dictionary();
         Trie t = new Trie(dictionary.getWords());
         PredictiveText predictive = new PredictiveText(t);
@@ -273,7 +281,7 @@ class GUI {
             /*
              * Replace the uncompleted word in the text field with the completed word
              */
-        textBox.setText(predictive.prediction(text).get(0) + " ");
+        textBox.setText(predictive.prediction(lastWord).get(0) + " ");
 
         } catch (IndexOutOfBoundsException e) {
 
