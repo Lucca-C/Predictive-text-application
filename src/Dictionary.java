@@ -1,30 +1,68 @@
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Dictionary {
     //-----FIELDS-----
-   private FileReadWrite fRW = new FileReadWrite();
-   private ArrayList<String> words = fRW.FileToArray("src/TextFiles/Dictionaries/en.txt");
-//   private ArrayList<String> wordsEN2 = fRW.FileToArray("src/TextFiles/Dictionaries/en2.txt");
-//   private ArrayList<String> wordsDE = fRW.FileToArray("src/TextFiles/Dictionaries/de.txt");
-//   private ArrayList<String> wordsES = fRW.FileToArray("src/TextFiles/Dictionaries/es.txt");
-//   private ArrayList<String> wordsFR = fRW.FileToArray("src/TextFiles/Dictionaries/fr.txt");
-//   private  List<String> words = List.of("w", "hello", "dog", "hell", "cat", "a", "hel","help","helps","helping",
-//            "potato", "porr", "wack");
+    private FileReadWrite fRW = new FileReadWrite();
+    private ArrayList<String> words;
 
     //-----CONSTRUCTORS-----
+
     //-----METHODS-----
-    public void print(){
-        for (String word : words){
+    /**
+     * Method to select which dictionary is being utilised.
+     *
+     * @param selection Correlates to a numbered dictionary and is passed through from the gui
+     * @param filePath  The file path of the custom dictionary
+     */
+    public void selectDictionary(int selection, String filePath) {
+        //Default file path (so it doesn't throw errors
+        filePath = "src/TextFiles/Dictionaries/en.txt";
+
+        if (1 == selection) {
+            words = fRW.FileToArray("src/TextFiles/Dictionaries/en.txt");
+        } else if (2 == selection) {
+            words = fRW.FileToArray("src/TextFiles/Dictionaries/en2.txt");
+        } else if (3 == selection) {
+            words = fRW.FileToArray("src/TextFiles/Dictionaries/de.txt");
+        } else if (4 == selection) {
+            words = fRW.FileToArray("src/TextFiles/Dictionaries/es.txt");
+        } else if (5 == selection) {
+            words = fRW.FileToArray("src/TextFiles/Dictionaries/de.txt");
+        } else if (6 == selection) {
+            words = fRW.FileToArray("src/TextFiles/Dictionaries/fr.txt");
+        } else if (7 == selection) {
+            words = fRW.FileToArray(filePath);
+        } else {
+            System.err.println("This dictionary does not exist defaulting to English");
+            words = fRW.FileToArray("src/TextFiles/Dictionaries/en.txt");
+        }
+    }
+
+    /**
+     * Method to print all the words in the "words" array
+     */
+    public void print() {
+        for (String word : words) {
             System.out.print(word);
             System.out.print(", ");
         }
     }
+
     //-----ACCESSORS & MUTATORS-----
+    /**
+     * accessor method for words array
+     *
+     * @return the words array
+     */
     public ArrayList<String> getWords() {
         return words;
     }
+
+    /**
+     * mutator method for words array
+     *
+     * @param words the words array
+     */
     public void setWords(ArrayList<String> words) {
         this.words = words;
     }
