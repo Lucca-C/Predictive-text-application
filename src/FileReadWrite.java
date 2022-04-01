@@ -39,11 +39,9 @@ public class FileReadWrite {
         ArrayList<String> words = FileToArray(filePath);
         int count = 0;
         String currentWord;
-
         while (count < words.size()) {
             currentWord = words.get(count).toLowerCase();
             input = input.toLowerCase();
-
             if (currentWord.equals(input)) {
                 duplicate = true;
             }
@@ -55,8 +53,7 @@ public class FileReadWrite {
     /**
      * Method that writes to the text file.
      *
-     * @param input    The input to be added to the text file.
-     * @param selection Defines the path of the targeted text file.
+
      */
     public void FileWrite(String input, int selection) {
         boolean duplicate;
