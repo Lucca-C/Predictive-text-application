@@ -13,7 +13,7 @@ class GUI {
     private int selection = 1;
     private final int listMax = 3;
     private final JButton goBackFromDictionary = new JButton("Go Back");
-    private final JButton goBackFromOptions = new JButton("Go Back");
+    private final JButton goBackFromAddOptions = new JButton("Go Back");
     private final JTextField textBox = new JTextField(70);
     private final JFrame window = new JFrame("Predictive Text");
     private final JPanel mainMenuPanel = new JPanel();
@@ -207,6 +207,7 @@ class GUI {
     public void createSettings(){
 
         selectLanguage = new JButton("Select Language");
+        JButton goBackFromOptions = new JButton("Go Back");
         JButton addToDictionary = new JButton("Add to Dictionary");
         settingsPanel.add(goBackFromOptions);
         settingsPanel.add(selectLanguage);
@@ -259,7 +260,7 @@ class GUI {
         JButton spanish = new JButton("Spanish");
         JButton french = new JButton("French");
 
-        languageSettingsPanel.add(goBackFromOptions);
+        languageSettingsPanel.add(goBackFromLanguageOptions);
         languageSettingsPanel.add(english);
         languageSettingsPanel.add(englishExtended);
         languageSettingsPanel.add(german);
@@ -342,6 +343,17 @@ class GUI {
             }
         });
 
+        goBackFromAddOptions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                addToDictionaryPanel.setVisible(false);
+                settingsPanel.setVisible(true);
+
+            }
+        });
+
+        addToDictionaryPanel.add(goBackFromAddOptions);
         addToDictionaryPanel.add(addToDictionary);
         addToDictionaryPanel.add(enter);
         window.add(addToDictionaryPanel);
