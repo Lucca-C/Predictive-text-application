@@ -15,9 +15,13 @@ public class Tester {
 
     }
     public static void testGUI(){
+
         GUI gui = new GUI();
         gui.createMainMenu()
         gui.createDictionary();
-        gui.createOptions();
+        gui.createSettings();
+        gui.createLanguageSettings();
+        gui.createAddToDictionary();
+
     }
 }

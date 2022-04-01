@@ -53,8 +53,7 @@ public class FileReadWrite {
     /**
      * Method that writes to the text file.
      *
-     * @param input    The input to be added to the text file.
-     * @param selection Defines which language has been selected.
+
      */
     public void FileWrite(String input, int selection) {
         boolean duplicate;
